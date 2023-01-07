@@ -1,0 +1,42 @@
+﻿@model List<Slider>
+@{
+    ViewData["Title"] = "Index";
+    int count = 0;
+}
+<div style="display:flex; justify-content:space-between; align-items:center">
+<h1 >Slider:</h1>
+<a asp-action="creat" asp-controller="slider" class="btn btn-info">Creat Slider</a>
+</div>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title1</th>
+      <th scope="col">Title2</th>
+      <th scope="col">ButonUrl</th>
+      <th scope="col">Image</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    @foreach (Slider item in Model)
+    {
+            count++;
+            <tr>
+                <th scope="row">@count</th>
+                <td>@item.Title1</td>
+                <td>@item.Title2</td>
+                <td>@item.ButonUrl</td>
+                <td>
+                    <img width="100px" src="~/assets/image/bg-images/@item.Image">
+                </td>
+                <td>
+                    <a asp-action="update"  asp-controller="slider" asp-route-id="@item.Id" class="btn btn-info">Update</a>
+                    <a asp-action="delete" asp-controller="slider" asp-route-id="@item.Id" class="btn btn-danger">Delete</a>
+                </td>
+               
+            </tr>
+    }
+  </tbody>
+</table>

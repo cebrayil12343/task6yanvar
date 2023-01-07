@@ -1,0 +1,46 @@
+﻿@model Slider
+@{
+    ViewData["Title"] = "Update";
+}
+
+<h1>Update</h1>
+
+<form method="post" asp-action="Update">
+
+<div class="container">
+    <div class="row">
+            <div class="mb-3 col-md-3">
+                <label asp-for="Title1" class="form-label">Title1</label>
+                <input type="text" class="form-control" id="Title1" asp-for="Title1" placeholder="title1">
+            </div>
+            <div class="mb-3 col-md-3">
+                <label asp-for="Title2" class="form-label">Title2</label>
+                <input type="text" class="form-control" id="Title2" asp-for="Title2" placeholder="title2">
+            </div>
+            <div class="mb-3 col-md-3">
+                <label asp-for="ButonUrl" class="form-label">ButonUrl</label>
+                <input type="text" class="form-control" id="ButonUrl" asp-for="ButonUrl" placeholder="ButonUrl">
+            </div>
+            <div class="mb-3 col-md-3">
+                <label asp-for="ButonUrlText" class="form-label">ButonUrlText</label>
+                <input type="text" class="form-control" id="ButonUrlText" asp-for="ButonUrlText" placeholder="ButonUrlText">
+            </div>
+    </div>
+
+        <div class="mb-3 col-md-3">
+            <label asp-for="Desc" class="form-label">Desc</label>
+            <textarea style="height:100px; width:500px" class="form-control" id="Desc" asp-for="Desc" placeholder="Desc"></textarea>
+
+        </div>
+
+        <div style="margin-bottom:20px">
+                <label asp-for="Image" class="form-label">Image</label>
+                <input class="form-control" id="Image" asp-for="Image" placeholder="Image">
+        </div>
+</div>
+<div style="display:flex; align-items:center; justify-content:center">
+        <button type="submit" class="btn btn-primary">Update</button>
+</div>
+
+</form>
+

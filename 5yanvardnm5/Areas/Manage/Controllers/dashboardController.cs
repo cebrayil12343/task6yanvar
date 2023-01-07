@@ -9,10 +9,5 @@ namespace _5yanvardnm5.Areas.manages.Controllers
         {
             return View();
         }
-        public IActionResult Creat()
-        {
-            return View();
-        }
-
     }
 }
