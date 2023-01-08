@@ -3,29 +3,59 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace _5yanvardnm5.Areas.Manage.Controllers
 {
-	[Area("Manage")]
-	public class SliderController : Controller
-	{
-		private readonly DataContext _datacontext;
+    [Area("Manage")]
+    public class SliderController : Controller
+    {
+        private readonly DataContext _datacontext;
 
-		public SliderController(DataContext dataContext)
-		{
-			_datacontext = dataContext;
-		}
-		public IActionResult Index()
-		{
-			List<Slider> sliderList = _datacontext.sliders.ToList();
+        public SliderController(DataContext dataContext)
+        {
+            _datacontext = dataContext;
+        }
+        public IActionResult Index()
+        {
+            List<Slider> sliderList = _datacontext.sliders.ToList();
             return View(sliderList);
-		}
-		[HttpGet]
+        }
+        [HttpGet]
         public IActionResult Creat()
         {
             return View();
         }
-		[HttpPost]
+        [HttpPost]
         public IActionResult Creat(Slider slider)
         {
-			_datacontext.sliders.Add(slider);	
+            if (slider.ImageFile.ContentType != "image/png" && slider.ImageFile.ContentType != "image/jpeg")
+            {
+                ModelState.AddModelError("ImageFile", "Jpeg and Png");
+                return View();
+            }
+
+            if(slider.ImageFile.Length > 3145728)
+            {
+                ModelState.AddModelError("ImageFile", "max 3 mb");
+                return View();
+            }
+
+            string file = slider.ImageFile.FileName;
+
+            if (file.Length>100)
+            {
+                file = file.Substring(file.Length - 100,100);
+            }
+
+            file = Guid.NewGuid().ToString() + file;
+
+            string data = "C:\\Users\\User\\Desktop\\5yanvardnm5\\5yanvardnm5\\wwwroot\\Upload\\Slider\\" + file;
+
+            using (FileStream fileStream = new FileStream(data, FileMode.Create))
+            {
+                slider.ImageFile.CopyTo(fileStream);
+            }
+
+            slider.Image = file;
+
+            _datacontext.sliders.Add(slider);	
 			_datacontext.SaveChanges();
 			return RedirectToAction("index");
         }

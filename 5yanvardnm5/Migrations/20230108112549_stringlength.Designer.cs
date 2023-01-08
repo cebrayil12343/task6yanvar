@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using _5yanvardnm5.Models;
 
@@ -10,9 +11,10 @@ using _5yanvardnm5.Models;
 namespace _5yanvardnm5.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20230108112549_stringlength")]
+    partial class stringlength
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,24 +23,6 @@ namespace _5yanvardnm5.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
-            modelBuilder.Entity("_5yanvardnm5.Models.Author", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(35)
-                        .HasColumnType("nvarchar(35)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("authors");
-                });
-
             modelBuilder.Entity("_5yanvardnm5.Models.book", b =>
                 {
                     b.Property<int>("Id")
@@ -46,9 +30,6 @@ namespace _5yanvardnm5.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("AuthorId")
-                        .HasColumnType("int");
 
                     b.Property<string>("Code")
                         .IsRequired()
@@ -66,9 +47,6 @@ namespace _5yanvardnm5.Migrations
                     b.Property<double>("DiscountPrice")
                         .HasColumnType("float");
 
-                    b.Property<int>("GenreId")
-                        .HasColumnType("int");
-
                     b.Property<bool>("IsAviable")
                         .HasColumnType("bit");
 
@@ -82,29 +60,7 @@ namespace _5yanvardnm5.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId");
-
-                    b.HasIndex("GenreId");
-
                     b.ToTable("books");
-                });
-
-            modelBuilder.Entity("_5yanvardnm5.Models.Genre", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(30)
-                        .HasColumnType("nvarchar(30)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("genres");
                 });
 
             modelBuilder.Entity("_5yanvardnm5.Models.Slider", b =>
@@ -131,8 +87,7 @@ namespace _5yanvardnm5.Migrations
 
                     b.Property<string>("Image")
                         .IsRequired()
-                        .HasMaxLength(136)
-                        .HasColumnType("nvarchar(136)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title1")
                         .IsRequired()
@@ -147,35 +102,6 @@ namespace _5yanvardnm5.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("sliders");
-                });
-
-            modelBuilder.Entity("_5yanvardnm5.Models.book", b =>
-                {
-                    b.HasOne("_5yanvardnm5.Models.Author", "Author")
-                        .WithMany("books")
-                        .HasForeignKey("AuthorId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("_5yanvardnm5.Models.Genre", "Genre")
-                        .WithMany("books")
-                        .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Author");
-
-                    b.Navigation("Genre");
-                });
-
-            modelBuilder.Entity("_5yanvardnm5.Models.Author", b =>
-                {
-                    b.Navigation("books");
-                });
-
-            modelBuilder.Entity("_5yanvardnm5.Models.Genre", b =>
-                {
-                    b.Navigation("books");
                 });
 #pragma warning restore 612, 618
         }
