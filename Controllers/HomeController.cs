@@ -20,7 +20,8 @@ namespace _5yanvardnm5.Controllers
             {
                 slider = _datacontext.sliders.ToList(),
                 FeaturedBooks=_datacontext.books.Include(x => x.bookImages).Include(x => x.Author).Where(x => x.IsFeatured).ToList(),
-                NewBooks = _datacontext.books.Include(x => x.bookImages).Include(x => x.Author).Where(x => x.IsNew == true).ToList()
+                NewBooks = _datacontext.books.Include(x => x.bookImages).Include(x => x.Author).Where(x => x.IsNew == true).ToList(),
+                DiscountedBooks = _datacontext.books.Include(x=>x.bookImages).Include(x=>x.Author).Where(x=>x.DiscountPrice > 0).ToList(),
             };
             return View(homeViewModel);
         }

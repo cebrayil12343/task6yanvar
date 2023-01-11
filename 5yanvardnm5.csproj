@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Views\boookf\" />
     <Folder Include="wwwroot\Upload\books\" />
     <Folder Include="wwwroot\Upload\Slider\" />
   </ItemGroup>

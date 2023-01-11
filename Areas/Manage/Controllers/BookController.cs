@@ -70,26 +70,26 @@ namespace _5yanvardnm5.Areas.Manage.Controllers
 
             if (book.ImagesPoster != null)
             {
-               
-                    if (book.ImagesPoster.ContentType != "image/png" && book.ImagesPoster.ContentType != "image/jpeg")
-                    {
-                        ModelState.AddModelError("ImagesPoster", "Jpeg and Png");
-                        return View();
-                    }
 
-                    if (book.ImagesPoster.Length > 3145728)
-                    {
-                        ModelState.AddModelError("ImagesPoster", "max 3 mb");
-                        return View();
-                    }
+                if (book.ImagesPoster.ContentType != "image/png" && book.ImagesPoster.ContentType != "image/jpeg")
+                {
+                    ModelState.AddModelError("ImagesPoster", "Jpeg and Png");
+                    return View();
+                }
 
-                    BookImage bookImage = new BookImage
-                    {
-                        Book = book,
-                        Image = FileManage.SaveFile(envs.WebRootPath, "upload\\books", book.ImagesPoster),
-                        IsPoster = true
-                    };
-                    _datacontext.bookImages.Add(bookImage);
+                if (book.ImagesPoster.Length > 3145728)
+                {
+                    ModelState.AddModelError("ImagesPoster", "max 3 mb");
+                    return View();
+                }
+
+                BookImage bookImage = new BookImage
+                {
+                    Book = book,
+                    Image = FileManage.SaveFile(envs.WebRootPath, "upload\\books", book.ImagesPoster),
+                    IsPoster = true
+                };
+                _datacontext.bookImages.Add(bookImage);
             }
 
             if (book.ImagesHover != null)
@@ -118,8 +118,8 @@ namespace _5yanvardnm5.Areas.Manage.Controllers
 
             if (book.ImagesFiles != null)
             {
-               foreach(IFormFile image in book.ImagesFiles)
-               {
+                foreach (IFormFile image in book.ImagesFiles)
+                {
                     if (image.ContentType != "image/png" && image.ContentType != "image/jpeg")
                     {
                         ModelState.AddModelError("ImageFile", "Jpeg and Png");
@@ -135,7 +135,7 @@ namespace _5yanvardnm5.Areas.Manage.Controllers
                     BookImage bookImage = new BookImage
                     {
                         Book = book,
-                        Image = FileManage.SaveFile(envs.WebRootPath,"upload\\books",image),
+                        Image = FileManage.SaveFile(envs.WebRootPath, "upload\\books", image),
                         IsPoster = null
                     };
                     _datacontext.bookImages.Add(bookImage);
@@ -152,7 +152,7 @@ namespace _5yanvardnm5.Areas.Manage.Controllers
             ViewBag.authors = _datacontext.authors.ToList();
             ViewBag.genres = _datacontext.genres.ToList();
             book book = _datacontext.books.Find(id);
-            if(book == null) return View("error");
+            if (book == null) return View("error");
 
             return View(book);
         }
@@ -162,25 +162,27 @@ namespace _5yanvardnm5.Areas.Manage.Controllers
             ViewBag.authors = _datacontext.authors.ToList();
             ViewBag.genres = _datacontext.genres.ToList();
 
-            book book = _datacontext.books.FirstOrDefault(x=>x.Id == books.Id);
-            if(books == null) return View("error");
+            book book = _datacontext.books.FirstOrDefault(x => x.Id == books.Id);
+            if (books == null) return View("error");
             if (!ModelState.IsValid) return View();
 
 
-                book.Name = books.Name;
-                book.Code = books.Code;
-                book.Desc = books.Desc;
-                book.AuthorId = books.AuthorId;
-                book.GenreId = books.GenreId;
-                book.CostPrice = books.CostPrice;
-                book.DiscountPrice = books.DiscountPrice;
-                book.SalePrice = books.SalePrice;
-                book.IsAviable = books.IsAviable;
-                book.IsNew = books.IsNew;
-                book.IsFeatured = books.IsFeatured;
+            book.Name = books.Name;
+            book.Code = books.Code;
+            book.Desc = books.Desc;
+            book.AuthorId = books.AuthorId;
+            book.GenreId = books.GenreId;
+            book.CostPrice = books.CostPrice;
+            book.DiscountPrice = books.DiscountPrice;
+            book.SalePrice = books.SalePrice;
+            book.IsAviable = books.IsAviable;
+            book.IsNew = books.IsNew;
+            book.IsFeatured = books.IsFeatured;
 
             _datacontext.SaveChanges();
             return RedirectToAction("index");
         }
+
+
     }
 }
